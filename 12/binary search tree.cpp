@@ -407,6 +407,47 @@ int preorder_print()
     cout<<"null\n";
 }
 
+void postorder_print_iterative(struct Node *root) {
+    if(root == NULL) return;
+    struct datapack *_stack1[50];
+    struct datapack *_stack2[50];
+
+    top1 = -1;
+    top2 = -1;
+    _stack1[++top1] = root;
+    while(top>=0) {
+        root = _stack1[top];
+        top--;
+        _stack2[++top2] = root;
+        if(root->left != NULL) _stack1[++top1] = (root->left);
+        if(root->right != NULL) _stack1[++top1] = (root->right);
+    }
+
+    while(top2 >= 0) {
+        root = _stack2[top];
+        top2--;
+        cout<<root->data<<" ";
+    }
+    /** Using STL stack
+    if(root == NULL) return;
+    stack<Node *> s1;
+    stack<Node *> s2;
+    s1.push(root);
+    while(!s1.empty()) {
+        root = s1.top();
+        s1.pop();
+        s2.push(root);
+        if(root->left != NULL) s1.push(root->left);
+        if(root->right != NULL) s1.push(root->right);
+    }
+    while(!s2.empty()) {
+        root = s2.top();
+        s2.pop();
+        cout<<root->data<<" ";
+    }*/
+    cout<<endl;
+}
+
 
 void postorder_print(struct datapack *point)
 {
