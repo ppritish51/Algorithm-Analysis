@@ -29,6 +29,7 @@ using namespace std;
 void instructions();
 void insert_element();
 void inorder_print(struct datapack *point);
+void inorder_print_iterative(struct datapack *point);
 int preorder_print();
 void postorder_print(struct datapack *point);
 int successor();
@@ -333,6 +334,48 @@ void inorder_print(struct datapack *point)
         inorder_print(temp->right);
     }
 }
+
+void inorder_print_iterative(struct datapack *root) {
+    if(root == NULL) {
+        return;
+    }
+    struct datapack *_stack[50];
+    int top = -1;
+    while(true) {
+        if(root != NULL) {
+            _stack[++top] = root;
+            root = root->left;
+        } else {
+            if(top<0) break;//going out of while
+            root = _stack[top];
+            --top;
+            cout<<root->data<<" ";
+            root = root->right;
+        }
+    }
+    cout<<endl;
+    /** If using STL
+    if(root == NULL) {
+        return;
+    }
+    stack<datapack *> s;
+    while(true) {
+        if(root != NULL) {
+            s.push(root);
+            root = root->left;
+        } else {
+            if(s.empty()) break;//going out of while
+            root = s.top();
+            s.pop();
+            cout<<root->data<<" ";
+            root = root->right;
+        }
+    }
+
+    */
+
+}
+
 int preorder_print()
 {
     if(root == NULL)
